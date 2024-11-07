@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path, os
-import environ
+import dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,12 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-ri7s#*3wuljl#6iue*porcr@ord18j-^fmd4*b074zm3rt3_yq"
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['.vercel.app', '.now.sh', '127.0.0.1']
 
 
 # Application definition
@@ -72,8 +72,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "notetakingproject.wsgi.application"
 
-env = environ.Env()
-environ.Env.read_env()
+dotenv_file=os.path.join(BASE_DIR, ".env")
+if os.path.isfile(dotenv_file):
+    dotenv.load_dotenv(dotenv_file)
+
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
@@ -86,12 +88,12 @@ environ.Env.read_env()
 
 DATABASES = {
 'default': {
-'ENGINE': 'django.db.backends.postgresql',
-'NAME': os.environ.get("DB_NAME"),
-'USER': os.environ.get("DB_USER"),
-'PASSWORD': os.environ.get("DB_PASSWORD"),
-'HOST': os.environ.get("DB_HOST"),
-'PORT': os.environ.get("DB_PORT")
+'ENGINE': os.environ["ENGINE"],
+'NAME': os.environ["DB_NAME"],
+'USER': os.environ["DB_USER"],
+'PASSWORD': os.environ["DB_PASSWORD"],
+'HOST': os.environ["DB_HOST"],
+'PORT': os.environ["DB_PORT"]
 }
 }
 
