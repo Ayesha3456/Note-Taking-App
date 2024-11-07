@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-ri7s#*3wuljl#6iue*porcr@ord18j-^fmd4*b074zm3rt3_yq
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['vercel.app', 'localhost', '127.0.0.1', '.now.sh']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -87,11 +87,11 @@ environ.Env.read_env()
 DATABASES = {
 'default': {
 'ENGINE': 'django.db.backends.postgresql',
-'NAME': env("DB_NAME"),
-'USER': env("DB_USER"),
-'PASSWORD': env("DB_PASSWORD"),
-'HOST': env("DB_HOST"),
-'PORT': env("DB_PORT")
+'NAME': os.environ.get("DB_NAME"),
+'USER': os.environ.get("DB_USER"),
+'PASSWORD': os.environ.get("DB_PASSWORD"),
+'HOST': os.environ.get("DB_HOST"),
+'PORT': os.environ.get("DB_PORT")
 }
 }
 
@@ -130,8 +130,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = "static/"
-STATICFILES_DIRS = [BASE_DIR/'static',]
-STATIC_ROOT = BASE_DIR/'staticfiles'
+STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles', 'static')
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
