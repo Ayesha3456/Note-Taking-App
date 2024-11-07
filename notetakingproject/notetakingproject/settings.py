@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path, os
-import dj_database_url
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -45,7 +45,6 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -73,7 +72,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "notetakingproject.wsgi.application"
 
-
+env = environ.Env()
+environ.Env.read_env()
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
@@ -85,7 +85,14 @@ WSGI_APPLICATION = "notetakingproject.wsgi.application"
 # }
 
 DATABASES = {
-    'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+'default': {
+'ENGINE': 'django.db.backends.postgresql',
+'NAME': env("DB_NAME"),
+'USER': env("DB_USER"),
+'PASSWORD': env("DB_PASSWORD"),
+'HOST': env("DB_HOST"),
+'PORT': env("DB_PORT")
+}
 }
 
 # Password validation
