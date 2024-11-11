@@ -22,12 +22,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY", "your-default-secret-key")
+SECRET_KEY = 'django-insecure-ri7s#*3wuljl#6iue*porcr@ord18j-^fmd4*b074zm3rt3_yq'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['.vercel.app', '.now.sh', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -73,21 +73,17 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "notetakingproject.wsgi.application"
 
-# Initialize environment variables
-env = environ.Env()
-environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
-
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': env("ENGINE", default="django.db.backends.postgresql_psycopg2"),
-        'NAME': env("DB_NAME"),
-        'USER': env("DB_USER"),
-        'PASSWORD': env("DB_PASSWORD"),
-        'HOST': env("DB_HOST", default="localhost"),
-        'PORT': env("DB_PORT", default="5432"),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': 'BPGFgcCGzfkPYqRBoJbSQfiAhusPKCOR',
+        'HOST': 'junction.proxy.rlwy.net',
+        'PORT': '33112',
     }
 }
 
